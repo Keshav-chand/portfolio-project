@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 10, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/91999/OneDrive/Desktop/Projects%20LLMOPS/portfolio/portfolio/src/app/_analytics/provider.tsx"],"sourcesContent":["\"use client\";\nimport posthog from \"posthog-js\";\nimport { PostHogProvider as PHProvider } from \"posthog-js/react\";\n\nif (typeof window !== \"undefined\") {\n  posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {\n    api_host: \"/ingest\",\n    ui_host: \"https://app.posthog.com\",\n  });\n}\nexport function PostHogProvider({ children }: { children: React.ReactNode }) {\n  return <PHProvider client={posthog}>{children}</PHProvider>;\n}"],"names":[],"mappings":";;;;;AACA;AACA;AAFA;;;;AAIA;;AAMO,SAAS,gBAAgB,EAAE,QAAQ,EAAiC;IACzE,qBAAO,2PAAC,8LAAU;QAAC,QAAQ,uKAAO;kBAAG;;;;;;AACvC","debugId":null}}]
+}
