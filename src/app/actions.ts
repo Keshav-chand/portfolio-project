@@ -1,6 +1,5 @@
-"use server";
-
-import { Resend } from "resend";
+'use server';
+import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -18,49 +17,38 @@ export async function submitContactForm(
   prevState: FormState,
   formData: FormData
 ): Promise<FormState> {
-  const name = formData.get("name")?.toString() || "";
-  const email = formData.get("email")?.toString() || "";
-  const message = formData.get("message")?.toString() || "";
+  // Get raw values
+  const rawName = formData.get('name');
+  const rawEmail = formData.get('email');
+  const rawMessage = formData.get('message');
 
-  const errors: FormState["errors"] = {};
+  // Convert to string safely, only if they are strings
+  const name = typeof rawName === 'string' ? rawName : '';
+  const email = typeof rawEmail === 'string' ? rawEmail : '';
+  const message = typeof rawMessage === 'string' ? rawMessage : '';
 
-  // Validation
-  if (!name) errors.name = ["Name is required"];
-  if (!email) errors.email = ["Email is required"];
-  else if (!email.includes("@")) errors.email = ["Invalid email"];
-  if (!message) errors.message = ["Message is required"];
+  const errors: FormState['errors'] = {};
+
+  if (!name) errors.name = ['Name is required'];
+  if (!email) errors.email = ['Email is required'];
+  else if (!email.includes('@')) errors.email = ['Invalid email'];
+  if (!message) errors.message = ['Message is required'];
 
   if (Object.keys(errors).length > 0) {
-    return {
-      message: "Validation failed",
-      errors,
-      success: false,
-    };
+    return { message: 'Validation failed', errors, success: false };
   }
 
-  // Single try/catch block for sending email
   try {
-    console.log("Sending email...");
     await resend.emails.send({
-      from: "Portfolio Contact <onboarding@resend.dev>", // or your verified email
-      to: "Keshavchand204@gmail.com",
+      from: 'Portfolio Contact <onboarding@resend.dev>',
+      to: 'yourmail@gmail.com',
       subject: `New message from ${name}`,
-      text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+      text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
     });
-    console.log("Email sent successfully!");
 
-    return {
-      message: "Message sent!",
-      success: true,
-      errors: {},
-    };
-  } catch (err: any) {
-    console.error("Email send failed:", err);
-
-    return {
-      message: "Failed to send message",
-      success: false,
-      errors: {},
-    };
+    return { message: 'Message sent!', success: true, errors: {} };
+  } catch (err: unknown) {
+    console.error(err);
+    return { message: 'Failed to send message', success: false, errors: {} };
   }
 }
