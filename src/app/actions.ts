@@ -41,7 +41,7 @@ export async function submitContactForm(
   try {
     await resend.emails.send({
       from: 'Portfolio Contact <onboarding@resend.dev>',
-      to: 'yourmail@gmail.com',
+      to: 'Keshavchand204@gmail.com',
       subject: `New message from ${name}`,
       text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
     });
