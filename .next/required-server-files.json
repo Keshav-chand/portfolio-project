@@ -56,6 +56,7 @@
       "formats": [
         "image/webp"
       ],
+      "maximumResponseBody": 50000000,
       "dangerouslyAllowSVG": false,
       "contentSecurityPolicy": "script-src 'none'; frame-src 'none'; sandbox;",
       "contentDispositionType": "attachment",
@@ -332,6 +333,6 @@
     ".next\\required-server-files.json"
   ],
   "ignore": [
-    "node_modules\\next\\dist\\compiled\\@ampproject\\toolbox-optimizer\\**\\*"
+    "node_modules\\.pnpm\\next@15.5.12_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\\node_modules\\next\\dist\\compiled\\@ampproject\\toolbox-optimizer\\**\\*"
   ]
 }
